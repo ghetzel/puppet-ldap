@@ -91,4 +91,3 @@ uniqueMember: uid=testuser2,ou=Testing,dc=example,dc=net
 uniqueMember: uid=testuser3,ou=Testing,dc=example,dc=net
 uniqueMember: uid=testuser4,ou=Testing,dc=example,dc=net
 uniqueMember: uid=testuser5,ou=Testing,dc=example,dc=net
-
