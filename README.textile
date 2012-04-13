@@ -9,7 +9,7 @@ The included functions are documented thusly:
 
 h3. ldapquery ( FILTER_OR_LDAP_URL, _[ ATTRIBUTE ]_, _[ FIRST_RESULT_ONLY ]_ )
 
-This function takes one mandatory and two optional arguments and returns either an array or a string value.  The first argument can be any valid LDAP filter string (e.g. <tt>_(|(mail=\*)(pager=\*))_</tt>), or an LDAP URL that _strongly resembles_ a standard RFC 2255 LDAP URL.  See below for details.
+This function takes one mandatory and two optional arguments and returns either an array or a string value.  The first argument can be any valid LDAP filter string (e.g. <tt>_(|(mail=*)(pager=*))_</tt>), or an LDAP URL that _strongly resembles_ a standard RFC 2255 LDAP URL.  See below for details.
 
 The second argument specifies the name of the attribute to return from the LDAP object (if using a filter or if not specified in the URL).  If omitted, it will default to the DN value of the result(s).
 
