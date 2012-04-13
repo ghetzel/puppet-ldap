@@ -1,0 +1,94 @@
+version: 1
+
+dn: ou=Testing,dc=example,dc=net
+objectClass: organizationalUnit
+objectClass: top
+ou: Testing
+
+dn: uid=testuser1,ou=Testing,dc=example,dc=net
+objectClass: top
+objectClass: posixAccount
+objectClass: account
+cn: Test User 1
+gidNumber: 99
+homeDirectory: /dev/null
+uid: testuser1
+uidNumber: 90001
+description: Test 1, Description 1
+description: Test 1, Description 2
+description: Test 1, Description 3
+description: Test 1, Description 4
+loginShell: /sbin/nologin
+
+dn: uid=testuser2,ou=Testing,dc=example,dc=net
+objectClass: top
+objectClass: posixAccount
+objectClass: account
+cn: Test User 2
+gidNumber: 99
+homeDirectory: /dev/null
+uid: testuser2
+uidNumber: 90001
+description: Test 2, Description 1
+description: Test 2, Description 2
+description: Test 2, Description 3
+description: Test 2, Description 4
+loginShell: /sbin/nologin
+
+dn: uid=testuser3,ou=Testing,dc=example,dc=net
+objectClass: top
+objectClass: posixAccount
+objectClass: account
+cn: Test User 3
+gidNumber: 99
+homeDirectory: /dev/null
+uid: testuser3
+uidNumber: 90001
+description: Test 3, Description 1
+description: Test 3, Description 2
+description: Test 3, Description 3
+description: Test 3, Description 4
+loginShell: /sbin/nologin
+
+dn: uid=testuser4,ou=Testing,dc=example,dc=net
+objectClass: top
+objectClass: posixAccount
+objectClass: account
+cn: Test User 4
+gidNumber: 99
+homeDirectory: /dev/null
+uid: testuser4
+uidNumber: 90001
+description: Test 4, Description 1
+description: Test 4, Description 2
+description: Test 4, Description 3
+description: Test 4, Description 4
+loginShell: /sbin/nologin
+
+dn: uid=testuser5,ou=Testing,dc=example,dc=net
+objectClass: top
+objectClass: posixAccount
+objectClass: account
+cn: Test User 5
+gidNumber: 99
+homeDirectory: /dev/null
+uid: testuser5
+uidNumber: 90001
+description: Test 5, Description 1
+description: Test 5, Description 2
+description: Test 5, Description 3
+description: Test 5, Description 4
+loginShell: /sbin/nologin
+
+dn: cn=testgroup1,ou=Testing,dc=example,dc=net
+objectClass: posixGroup
+objectClass: top
+objectClass: groupOfUniqueNames
+cn: testgroup1
+gidNumber: 99999
+uniqueMember: uid=testuser1,ou=Testing,dc=example,dc=net
+uniqueMember: uid=testuser2,ou=Testing,dc=example,dc=net
+uniqueMember: uid=testuser3,ou=Testing,dc=example,dc=net
+uniqueMember: uid=testuser4,ou=Testing,dc=example,dc=net
+uniqueMember: uid=testuser5,ou=Testing,dc=example,dc=net
+
