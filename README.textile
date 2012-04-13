@@ -1,0 +1,70 @@
+h2. Overview
+
+This module is a suite of utility functions for Puppet that allow for the arbitrary query and retrieval of data from an LDAP server.
+
+h2. Usage
+
+The included functions are documented thusly:
+
+
+h3. ldapquery ( FILTER_OR_LDAP_URL, _[ ATTRIBUTE ]_, _[ FIRST_RESULT_ONLY ]_ )
+
+This function takes one mandatory and two optional arguments and returns either an array or a string value.  The first argument can be any valid LDAP filter string (e.g. _(|(mail=*)(pager=*))_), or an LDAP URL that _strongly resembles_ a standard RFC 2255 LDAP URL.  See below for details.
+
+The second argument specifies the name of the attribute to return from the LDAP object (if using a filter or if not specified in the URL).  If omitted, it will default to the DN value of the result(s).
+
+The third argument is a boolean value that specifies whether to return an array of all results (default) or only the first result (as a string).
+
+h4. Examples
+
+*ldapquery("(mail=*@example.net)")*
+
+This will perform an LDAP query for all objects up to one level below the root (default) that contain a mail attribute. It will return an array of distinguished names (DNs).
+
+*ldapquery("(mail=*@example.net)", "uid")*
+
+This is the same as above, except it will return an array of non-empty values from the 'uid' attribute of each matching result.
+
+*ldapquery("ldap:///ou=People???(uid=bob)", "cn")*
+
+This will query the directory for all objects directly under the 'People' OU whose 'uid' attribute is 'bob', returning an array of 'cn' values.
+
+h2. LDAP URLs
+
+The first argument to <pre>ldapquery()</pre> can either be a standard LDAP filter string, or a fully qualified LDAP URL.  The URL resembles the RFC 2255 format, but has a few additional features that make it easier to use within the context of Puppet.
+
+The format of the URL breaks down like this:
+
+<pre>ldap:// [HOST[:PORT]] / [BASE_DN] ? [ATTRIB[, ...]] ? SCOPE ? FILTER ? [EXTENSIONS ...]</pre>
+
+
+* *HOST* and *PORT* are optional components that specify the LDAP server to query.  If omitted, it will default to the value of the 'ldapserver' configuration in <pre>puppet.conf</pre>.
+
+* *BASE_DN* is the location to begin the search from.  If omitted, it will default to the value of the 'ldapbase' configuration in <pre>puppet.conf</pre>.  If a BASE_DN is specified that does not contain at least one 'dc=' component, it is taken to be a relative value.  In this case, the value of 'ldapbase' will automatically be appended to the supplied value.
+
+  For example, given that <pre>puppet.conf</pre> reads:
+
+  <pre>
+  [main]
+  ...
+  ldapbase = dc=example,dc=net 
+  <pre>
+
+  The Base DN for the URL <pre>ldap:///ou=Groups???(cn=*)</pre> would expand to <pre>ou=Groups,dc=example,dc=net</pre>.
+
+* *ATTRIB* is a comma-separated list of one or more attributes the search should return.
+
+* *SCOPE* is one of 'base', 'one', or 'sub' that specifies the scope of the LDAP query to be run.  'base' will only search within the object specified as BASE_DN, 'one' will search up to one level below BASE_DN, and 'sub' will search the entire subtree below BASE_DN.  The default is 'one'.
+
+* *FILTER* is the LDAP Query to be run.  This component is required.
+
+* *EXTENSIONS* are a comma-separated list of key=value pairs that can be passed into the function for various purposes.  These are completely custom to this URL format.  Currently supported extensions are:
+** *userfact*: the Facter fact that contains the username to be used in the LDAP bind.
+** *passfact*: the Facter fact that contains the password to be used in the LDAP bind.
+** *timeout*: specifies the amount of time (in seconds) before the query is cancelled.
+** *multi*: specifies what to do with attributes that appear multiple times in a result set.
+*** _first_: only return the first value
+*** _join_:  join all values using <pre>attrDelim</pre>
+*** _merge_: append all values into the result set _(default)_
+** *attrDelim*: specifies the string to join multiple attributes on _(default: comma)_
+
