@@ -31,18 +31,18 @@ This will query the directory for all objects directly under the 'People' OU who
 
 h2. LDAP URLs
 
-The first argument to <pre>ldapquery()</pre> can either be a standard LDAP filter string, or a fully qualified LDAP URL.  The URL resembles the RFC 2255 format, but has a few additional features that make it easier to use within the context of Puppet.
+The first argument to <tt>ldapquery()</tt> can either be a standard LDAP filter string, or a fully qualified LDAP URL.  The URL resembles the RFC 2255 format, but has a few additional features that make it easier to use within the context of Puppet.
 
 The format of the URL breaks down like this:
 
 <pre>ldap:// [HOST[:PORT]] / [BASE_DN] ? [ATTRIB[, ...]] ? SCOPE ? FILTER ? [EXTENSIONS ...]</pre>
 
 
-* *HOST* and *PORT* are optional components that specify the LDAP server to query.  If omitted, it will default to the value of the 'ldapserver' configuration in <pre>puppet.conf</pre>.
+* *HOST* and *PORT* are optional components that specify the LDAP server to query.  If omitted, it will default to the value of the 'ldapserver' configuration in <tt>puppet.conf</tt>.
 
-* *BASE_DN* is the location to begin the search from.  If omitted, it will default to the value of the 'ldapbase' configuration in <pre>puppet.conf</pre>.  If a BASE_DN is specified that does not contain at least one 'dc=' component, it is taken to be a relative value.  In this case, the value of 'ldapbase' will automatically be appended to the supplied value.
+* *BASE_DN* is the location to begin the search from.  If omitted, it will default to the value of the 'ldapbase' configuration in <tt>puppet.conf</tt>.  If a BASE_DN is specified that does not contain at least one 'dc=' component, it is taken to be a relative value.  In this case, the value of 'ldapbase' will automatically be appended to the supplied value.
 
-  For example, given that <pre>puppet.conf</pre> reads:
+  For example, given that <tt>puppet.conf</tt> reads:
 
   <pre>
   [main]
@@ -50,7 +50,7 @@ The format of the URL breaks down like this:
   ldapbase = dc=example,dc=net 
   <pre>
 
-  The Base DN for the URL <pre>ldap:///ou=Groups???(cn=*)</pre> would expand to <pre>ou=Groups,dc=example,dc=net</pre>.
+  The Base DN for the URL <tt>ldap:///ou=Groups???(cn=*)</tt> would expand to <tt>ou=Groups,dc=example,dc=net</tt>.
 
 * *ATTRIB* is a comma-separated list of one or more attributes the search should return.
 
@@ -64,7 +64,7 @@ The format of the URL breaks down like this:
 ** *timeout*: specifies the amount of time (in seconds) before the query is cancelled.
 ** *multi*: specifies what to do with attributes that appear multiple times in a result set.
 *** _first_: only return the first value
-*** _join_:  join all values using <pre>attrDelim</pre>
+*** _join_:  join all values using <tt>attrDelim</tt>
 *** _merge_: append all values into the result set _(default)_
 ** *attrDelim*: specifies the string to join multiple attributes on _(default: comma)_
 
